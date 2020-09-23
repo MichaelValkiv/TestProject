@@ -1,0 +1,78 @@
+<form [formGroup]="todoForm" (ngSubmit)="addTask()" autocomplete="off">
+    <div class="p-field">
+        <input id="title" type="text" aria-describedby="title-help" class="" pInputText placeholder="Todo Title *"
+               formControlName="title"/>
+    </div>
+    <p-button class="addBtn" [disabled]="!todoForm.valid" label="Add Todo" type="submit"></p-button>
+</form>
+
+<div class="card">
+    <p-table [value]="allTasks" dataKey="id" editMode="row">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Completed</th>
+                <th style="width:10rem"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-task let-editing="editing" let-i="rowIndex">
+            <tr [pEditableRow]="task">
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{i +1}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="task.title">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{task.title}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-checkbox [(ngModel)]="task.completed" binary="true" inputId="binary"></p-checkbox>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{task.completed | statusTransformer}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="text-align:center">
+                    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-cog"
+                            title="actions" (click)="selectTask(task)" class="p-button-rounded p-button-text"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-trash"
+                            (click)="showDeleteConfirmation(); selectTask(task)" title="delete"
+                            class="p-button-rounded p-button-text"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-pencil"
+                            (click)="saveTask()" title="edit"
+                            class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+                            title="cancel" class="p-button-rounded p-button-text p-button-danger"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog header="Please Confirm Deletion" [(visible)]="showModal" [modal]="true" [style]="{width: '50vw'}"
+          [baseZIndex]="10000"
+          [draggable]="false" [resizable]="false">
+    <p class="p-m-0">{{ taskName }}</p>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="showModal=false; deleteTask()" label="Yes"
+                  class="p-button-text"></p-button>
+        <p-button icon="pi pi-times" (click)="showModal=false" label="No"></p-button>
+    </ng-template>
+</p-dialog>
+<p-toast></p-toast>

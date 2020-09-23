@@ -1,0 +1,24 @@
+.form-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    width: 320px;
+
+    form {
+        width: 100%;
+
+        input,
+        small {
+            width: 100%;
+        }
+
+        .error {
+            opacity: 0;
+        }
+
+        .showError {
+            opacity: 1;
+        }
+    }
+}

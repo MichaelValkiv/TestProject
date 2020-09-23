@@ -1,0 +1,47 @@
+<div class="form-wrapper">
+    <form [formGroup]="registrationForm" (ngSubmit)="registerUser()" autocomplete="off">
+        <div class="p-field">
+            <input id="name" type="text" aria-describedby="name-help" pInputText placeholder="Name"
+                   formControlName="name"/>
+        </div>
+        <div class="p-field">
+            <input id="username" type="text" aria-describedby="username-help" pInputText placeholder="Username"
+                   formControlName="userName"/>
+        </div>
+        <div class="p-field">
+            <input id="email" type="text" aria-describedby="email-help" pInputText placeholder="example@mail.com *"
+                   formControlName="email" class="emailInput"/>
+            <small id="email-help" class="p-invalid error"
+                   [ngClass]="{'showError': registrationForm.get('email').hasError('email') && !registrationForm.get('email').hasError('required')}">Email
+                is invalid.</small>
+        </div>
+        <div class="p-field">
+            <p-inputMask id="phone" mask="(999) 999-9999? x99999" placeholder="(999) 999-9999? x99999 *"
+                         aria-describedby="phone-help"
+                         formControlName="phone"></p-inputMask>
+        </div>
+
+        <div formGroupName="address">
+
+            <div class="p-field">
+                <input id="street" type="text" aria-describedby="street-help" pInputText placeholder="Street"
+                       formControlName="street"/>
+            </div>
+            <div class="p-field">
+                <input id="suite" type="text" aria-describedby="suite-help" pInputText placeholder="Suite"
+                       formControlName="suite"/>
+            </div>
+            <div class="p-field">
+                <input id="city" type="text" aria-describedby="city-help" pInputText placeholder="City"
+                       formControlName="city"/>
+            </div>
+            <div class="p-field">
+                <input id="zipcode" type="text" aria-describedby="zipcode-help" pInputText placeholder="Zipcode"
+                       formControlName="zipcode"/>
+            </div>
+
+        </div>
+        <p-button [disabled]="!registrationForm.valid" label="Add User" type="submit" class="submitBtn"></p-button>
+    </form>
+</div>
+<p-toast></p-toast>

@@ -1,0 +1,16 @@
+body {
+    display: flex;
+    justify-content: center;
+}
+.p-button:disabled {
+    cursor: not-allowed !important;
+}
+.p-button {
+    width: 100%;
+}
+.p-inputtext {
+    width: 100% !important;
+}
+.p-inputtext:not(.emailInput) {
+    margin-bottom: 15px;
+}
