@@ -7,7 +7,10 @@
 </form>
 
 <div class="card">
-    <p-table [value]="allTasks" dataKey="id" editMode="row">
+    <p-table [value]="allTasks" dataKey="id" editMode="row" [paginator]="true" [rows]="5"
+             [showCurrentPageReport]="true"
+             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+             [rowsPerPageOptions]="[5,10,25,50]">
         <ng-template pTemplate="header">
             <tr>
                 <th>#</th>
@@ -24,7 +27,7 @@
                             <input pInputText type="text">
                         </ng-template>
                         <ng-template pTemplate="output">
-                            {{i +1}}
+                            {{i + 1}}
                         </ng-template>
                     </p-cellEditor>
                 </td>
