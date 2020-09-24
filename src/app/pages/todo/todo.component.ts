@@ -56,7 +56,7 @@ export class TodoComponent implements OnInit, OnDestroy {
         this.taskName = task.title;
     }
 
-    // Doesn't work because new item id is bigger then 200 (last item id)
+    // Doesn't work for created item. Because new item id is bigger then 200 (last item id)
     public saveTask(): void {
         this.subscription.add(this.todoService.updateTodo(this.selectedTask).subscribe(
             () => {
